@@ -1,0 +1,30 @@
+.postBlock {
+	padding: 10px;
+}
+.posts {
+	margin-top: 10px;
+}
+.textareaBlock textarea {
+	width: 30%;
+    height: 80px;
+    border-radius: 4px;
+    padding: 5px;
+}
+.postBlock__title {
+	font-size: 18px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.postBlock__button button {
+	background-color: #fff;
+    border: 1px solid #696161;
+    padding: 7px 28px;
+    font-size: 14px;
+    color: #060501;
+}
+.postBlock__button button:hover {
+	box-shadow: inset 0px 0px 3px 0px rgb(0, 0, 0);
+    cursor: pointer;
+}

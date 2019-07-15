@@ -1,0 +1,44 @@
+.siteBar {
+
+}
+.nav {
+	grid-area: n;
+	padding: 15px;
+	background-color: #cfc2d8;
+}
+.item {
+	padding-bottom: 8px;
+}
+.item a {
+	color: #060501;
+    text-decoration: none;
+    font-size: 18px;
+}
+.item a:before {
+    content: "- ";
+}
+.item a.active {
+	color: #a92076;
+}
+.friends {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr; 
+    justify-content: center;
+    background-color: #e8e4e4;
+    padding: 10px;
+}
+.friend img{
+	width: 50px;
+	border-radius: 30px;
+}
+.friend {
+	display: grid;
+    grid-template-rows: 1fr 20px;
+    justify-content: center;	
+    text-align: center;		
+}
+.friend a {
+	text-decoration: none;
+	font-size: 18px;
+	color: #060501;
+}
