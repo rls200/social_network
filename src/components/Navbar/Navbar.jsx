@@ -3,7 +3,6 @@ import {NavLink} from 'react-router-dom';
 import NavbarCss from './Navbar.module.css';
 
 const Navbar = (props) => {
-
 	let navbarElements = props.state.navbarLinks.map(link => {
 		return (
 			<div className={NavbarCss.item}>
