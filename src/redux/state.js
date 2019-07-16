@@ -6,7 +6,7 @@ let store = {
 							{id: 1, message: 'Hi, how are you?', likesCount: 10, avatar: 'https://forum.exbo.su/assets/avatars/MUCd73rCuZMCKd6k.png'},
 							{id: 2, message: 'Its my first', likesCount: 15, avatar: 'https://im0-tub-ru.yandex.net/i?id=6bd07a276f75b34230f96890b524bd9e-sr&n=13'}
 						],
-						newPostText: 'It-kamasa'
+						newPostText: ''
 					},
 					messagesPage: {
 						dialogsData: [
@@ -23,7 +23,8 @@ let store = {
 							{id: 3, message: 'Yoma'},
 							{id: 4, message: 'Fady pady nill alenis'},
 							{id: 5, message: 'Guplas das oirut'}
-						]
+						],
+						newMessageText: ''
 					},
 					sidebar: {
 						navbarLinks: [
@@ -49,27 +50,53 @@ let store = {
 				console.log("state izmena");
 			},
 
-			addPost() {
-				let newPost = {
-					id: 5,
-					message: this._state.profilePage.newPostText,
-					likesCount: 0,
-					avatar: 'https://forum.exbo.su/assets/avatars/MUCd73rCuZMCKd6k.png'
-				};
-				this._state.profilePage.postsData.push(newPost);
-				this._state.profilePage.newPostText = '';
-				this._callSubscriber(this._state);
-			},
-
-			updateNewPostText(newText) {
-				this._state.profilePage.newPostText = newText;
-				this._callSubscriber(this._state);
-			},
-
 			subscrite(observer) {
 				this._callSubscriber = observer;
+			},
+			dispatch(action) {
+				if (action.type === ADD_POST) {
+					let newPost = {
+						id: 5,
+						message: this._state.profilePage.newPostText,
+						likesCount: 0,
+						avatar: 'https://forum.exbo.su/assets/avatars/MUCd73rCuZMCKd6k.png'
+					};
+					this._state.profilePage.postsData.push(newPost);
+					this._state.profilePage.newPostText = '';
+					this._callSubscriber(this._state);
+				} else if (action.type === UPDATE_NEW_POST_TEXT) {
+					this._state.profilePage.newPostText = action.newText;
+					this._callSubscriber(this._state);
+				} else if (action.type === ADD_MESSAGE) {
+					let newMessage = {
+						id: 6,
+						message: this._state.messagesPage.newMessageText
+					};
+					this._state.messagesPage.messagesData.push(newMessage);
+					this._state.messagesPage.newMessageText = '';
+					this._callSubscriber(this._state);
+				} else if (action.type === UPDATE_NEW_MESSAGE) {
+					this._state.messagesPage.newMessageText = action.message;
+					this._callSubscriber(this._state);
+				}
 			}
+			
 
 }
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
+
+export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
+
+export const updateMessageActionCreator = (message) => ({ type: UPDATE_NEW_MESSAGE, message: message });
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+
+export const updateNewPostTextActionCreator = (text) => 
+	({type: UPDATE_NEW_POST_TEXT, newText: text});
+
 export default store;
+
