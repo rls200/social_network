@@ -13,20 +13,24 @@ const profileReducer = (state = initializationState, action) => {
 
 	switch(action.type) {
 
-		case ADD_POST:
-			let newPost = {
-				id: 5,
-				message: state.newPostText,
-				likesCount: 0,
-				avatar: 'https://forum.exbo.su/assets/avatars/MUCd73rCuZMCKd6k.png'
+		case ADD_POST: {
+			return {
+				...state,
+				postsData: [
+					...state.postsData,
+					{id: 5, message: state.newPostText, likesCount: 0, avatar: 'https://forum.exbo.su/assets/avatars/MUCd73rCuZMCKd6k.png'}
+				],
+				newPostText: ''
 			};
-			state.postsData.push(newPost);
-			state.newPostText = '';
-			return state;
+		}
 
-		case UPDATE_NEW_POST_TEXT:
-			state.newPostText = action.newText;
-			return state;
+		case UPDATE_NEW_POST_TEXT: {
+			return  {
+				...state,
+				newPostText: action.newText
+			};
+		}
+
 
 		default: 
 			return state;

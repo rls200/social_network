@@ -7,7 +7,7 @@ const Navbar = (props) => {
 	let navbarElements = state.navbarLinks.map(link => {
 		return (
 			<div className={NavbarCss.item}>
-				<NavLink to={link.link} activeClassName={NavbarCss.active}>{link.textLink}</NavLink>
+				<NavLink to={link.link} activeClassName={NavbarCss.active} key={link.id}>{link.textLink}</NavLink>
 			</div>
 		);
 	});
