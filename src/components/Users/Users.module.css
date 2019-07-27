@@ -1,0 +1,42 @@
+.users {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 20px;
+    background-color: #f5f5f5;
+    margin: 10px;
+    width: 60%;
+    padding: 10px 20px;
+}
+.users__avatarFollow {
+
+}
+.Users__avatar {
+    max-width: 100%;
+    border-radius: 50px;
+}
+.Users__button {
+    min-width: 100px;
+    min-height: 30px;
+    background-color: #6ec740;
+    border: none;
+}
+.Users__button:hover {
+    cursor: pointer;
+    background-color: #34690c;
+    color: white;
+}
+.users__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #953434;
+    border-radius: 5px;
+    padding: 0 10px;
+    background-color: #ecde95;
+    align-items: center;
+}
+.users__info__nameStatus {
+
+}
+.users__info__locCountry {
+    text-align: right;
+}
