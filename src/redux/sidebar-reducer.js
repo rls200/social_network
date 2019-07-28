@@ -4,7 +4,8 @@ const initializationState = {
 		{id: 2, link: '/dialogs', textLink: 'Message'},
 		{id: 3, link: '/news', textLink: 'News'},
 		{id: 4, link: '/music', textLink: 'Music'},
-		{id: 5, link: '/settings', textLink: 'Settings'}
+		{id: 5, link: '/settings', textLink: 'Settings'},
+		{id: 6, link: '/users', textLink: 'Users'}
 	],
 	friends: [
 		{id: 1, link: '/', name: 'Andrey', avatar: 'https://las-venturas.lt/forumas/uploads/profile/photo-thumb-14971.png'},
