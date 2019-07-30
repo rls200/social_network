@@ -8,7 +8,7 @@
     padding: 10px 20px;
 }
 .users__avatarFollow {
-
+    text-align: center;
 }
 .Users__avatar {
     max-width: 100%;
