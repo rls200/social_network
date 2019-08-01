@@ -1,8 +1,27 @@
 .profileInfo__desc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: 10px;
     color: #fff;
-    width: 30%;
     border-bottom: 1px solid #e6e6e6;
     font-size: 18px;
-    margin-top: 30px;
+    background-color: #D2691E;
+}
+.profileInfo__desc img {
+    width: 135px;
+}
+.profileInfo__desc__vn {
+    background-color: #A0522D;
+    padding: 10px 25px 25px;
+    border-radius: 5px;
+    margin: 10px;
+}
+.profileInfo__desc__avatar {
+
+}
+.profileInfo__desc__avatar h4 {
+    margin: 5px 0;
+}
+.profileInfo__desc__contacts {
+
 }

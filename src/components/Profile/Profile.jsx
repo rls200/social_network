@@ -4,9 +4,10 @@ import MyPostContainer from './MyPosts/MyPostContainer';
 import ProfileInfo from './ProfileInfo';
 
 const Profile = (props) => {
+
 	return (
 		<div className={ProfileCss.content}>
-			<ProfileInfo />
+			<ProfileInfo profile={props.profile} />
 			<MyPostContainer /> 
 		</div>
 	);

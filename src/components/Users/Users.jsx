@@ -1,6 +1,7 @@
 import React from 'react';
 import UsersCss from './Users.module.css';
 import avatarPhoto from '../../assets/images/personal-user-illustration-@2x.png';
+import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -8,6 +9,7 @@ const Users = (props) => {
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
     }
+    debugger
     return <div>
         <div className={UsersCss.pagination}>
             {pages.map(p =>
@@ -21,8 +23,13 @@ const Users = (props) => {
             props.users.map(u =>
                 <div key={u.id} className={UsersCss.users}>
                     <div className={UsersCss.users__avatarFollow}>
-                        <div><img className={UsersCss.Users__avatar}
-                                  src={u.photos.small != null ? u.photos.small : avatarPhoto}/></div>
+                        <div>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img
+                                    className={UsersCss.Users__avatar}
+                                    src={u.photos.small != null ? u.photos.small : avatarPhoto}/>
+                            </NavLink>
+                        </div>
                         <div>
                             {u.followed ?
                                 <button onClick={() => {
