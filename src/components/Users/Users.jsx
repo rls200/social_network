@@ -9,7 +9,6 @@ const Users = (props) => {
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i);
     }
-    debugger
     return <div>
         <div className={UsersCss.pagination}>
             {pages.map(p =>
@@ -33,10 +32,10 @@ const Users = (props) => {
                         <div>
                             {u.followed ?
                                 <button onClick={() => {
-                                    props.unFollow(u.id)
+                                    props.unFollowChenged(u.id)
                                 }} className={UsersCss.Users__button}>UNFOLLOW</button> :
                                 <button onClick={() => {
-                                    props.follow(u.id)
+                                    props.followChenged(u.id)
                                 }} className={UsersCss.Users__button}>FOLLOW</button>}
 
                         </div>
