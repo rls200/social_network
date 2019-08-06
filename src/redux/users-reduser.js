@@ -4,13 +4,15 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const SET_IS_LOADING = 'SET_IS_LOADING';
+const FOLLOWING_PROGRESS = 'FOLLOWING_PROGRESS';
 
 const initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isLoading: false
+    isLoading: false,
+    followingProgress: false
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -51,6 +53,9 @@ const usersReduser = (state = initialState, action) => {
         case SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading }
 
+        case FOLLOWING_PROGRESS:
+            return { ...state, followingProgress: action.followingProgress }
+
         default:
             return state;
     }
@@ -62,5 +67,6 @@ export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalUsersCount =(totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
+export const toggleFollowingProgress = (followingProgress) => ({type: FOLLOWING_PROGRESS, followingProgress});
 
 export default usersReduser;

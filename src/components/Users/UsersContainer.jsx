@@ -1,72 +1,48 @@
 import React from 'react';
 import Users from './Users';
 import {connect} from 'react-redux';
-import {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setIsLoading} from '../../redux/users-reduser';
+import {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setIsLoading, toggleFollowingProgress} from '../../redux/users-reduser';
 import * as axios from "axios";
 import Preloadedr from "../Common/Preloader/preloader";
-import MockAdapter from "axios-mock-adapter";
-import UserData from '../../assets/MockJson/UserData.js';
+import { userApi } from "../../api/userApi/userApi";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        console.log(UserData);
-        var mock = new MockAdapter(axios);
-
-        mock.onGet(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
-            .reply(200, UserData);
-
         this.props.setIsLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                console.log("response-", response);
+	      userApi.getUsers(this.props.pageSize, this.props.currentPage).then(response => {
                 this.props.setIsLoading(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+                this.props.setUsers(response.items);
+                this.props.setTotalUsersCount(response.totalCount);
             });
     }
 
     onPageChenged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setIsLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`, {
-            withCredentials: true
-        })
-            .then(response => {
+	      userApi.getUsers(this.props.pageSize, pageNumber).then(response => {
                 this.props.setIsLoading(false);
-                this.props.setUsers(response.data.items);
+                this.props.setUsers(response.items);
             });
     }
 
     unFollowChenged = (userId) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
-            withCredentials: true,
-            headers: {
-                'API-KEY' : '74b17300-dcf4-42a1-bf62-68b312250a1c'
-            }
-        })
-            .then(response => {
+    	this.props.toggleFollowingProgress(true);
+	    userApi.unfollow(userId).then(response => {
                 if(response.resultCode == 0) {
                     this.props.unFollow(userId)
                 }
+		            this.props.toggleFollowingProgress(false);
             })
     }
 
     followChenged = (userId) => {
-    debugger
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true,
-            headers: {
-                'API-KEY' : '74b17300-dcf4-42a1-bf62-68b312250a1c'
-            }
-        })
-            .then(response => {
-
+	    this.props.toggleFollowingProgress(true);
+	    userApi.follow(userId).then(response => {
                 if(response.resultCode == 0) {
                     this.props.follow(userId)
                 }
+		            this.props.toggleFollowingProgress(false);
             })
     }
 
@@ -84,7 +60,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+	      followingProgress: state.usersPage.followingProgress
     }
 }
 
@@ -94,5 +71,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    setIsLoading
+    setIsLoading,
+		toggleFollowingProgress
 })(UsersContainer);

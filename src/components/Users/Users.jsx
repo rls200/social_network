@@ -33,10 +33,10 @@ const Users = (props) => {
                             {u.followed ?
                                 <button onClick={() => {
                                     props.unFollowChenged(u.id)
-                                }} className={UsersCss.Users__button}>UNFOLLOW</button> :
+                                }} className={UsersCss.Users__button} disabled={props.followingProgress}>UNFOLLOW</button> :
                                 <button onClick={() => {
                                     props.followChenged(u.id)
-                                }} className={UsersCss.Users__button}>FOLLOW</button>}
+                                }} className={UsersCss.Users__button} disabled={props.followingProgress}>FOLLOW</button>}
 
                         </div>
                     </div>
