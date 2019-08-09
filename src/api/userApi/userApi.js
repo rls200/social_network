@@ -9,5 +9,5 @@ export const userApi =  {
 	},
 	unfollow (userId) {
 		return instance.delete(`follow/${userId}`).then(response => response.data)
-	},
+	}
 }

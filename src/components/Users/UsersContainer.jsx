@@ -1,49 +1,25 @@
 import React from 'react';
 import Users from './Users';
 import {connect} from 'react-redux';
-import {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, setIsLoading, toggleFollowingProgress} from '../../redux/users-reduser';
-import * as axios from "axios";
+import { getUsers, getPage, followingThunk, unFollowingThunk} from '../../redux/users-reduser';
 import Preloadedr from "../Common/Preloader/preloader";
-import { userApi } from "../../api/userApi/userApi";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsLoading(true);
-	      userApi.getUsers(this.props.pageSize, this.props.currentPage).then(response => {
-                this.props.setIsLoading(false);
-                this.props.setUsers(response.items);
-                this.props.setTotalUsersCount(response.totalCount);
-            });
+      this.props.getUsers(this.props.pageSize, this.props.currentPage);
     }
 
     onPageChenged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.setIsLoading(true);
-	      userApi.getUsers(this.props.pageSize, pageNumber).then(response => {
-                this.props.setIsLoading(false);
-                this.props.setUsers(response.items);
-            });
+      this.props.getPage(this.props.pageSize, pageNumber);
     }
 
     unFollowChenged = (userId) => {
-    	this.props.toggleFollowingProgress(true);
-	    userApi.unfollow(userId).then(response => {
-                if(response.resultCode == 0) {
-                    this.props.unFollow(userId)
-                }
-		            this.props.toggleFollowingProgress(false);
-            })
+    	this.props.unFollowingThunk(userId);
     }
 
     followChenged = (userId) => {
-	    this.props.toggleFollowingProgress(true);
-	    userApi.follow(userId).then(response => {
-                if(response.resultCode == 0) {
-                    this.props.follow(userId)
-                }
-		            this.props.toggleFollowingProgress(false);
-            })
+      this.props.followingThunk(userId);
     }
 
     render() {
@@ -66,11 +42,8 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setIsLoading,
-		toggleFollowingProgress
+    getUsers,
+    getPage,
+    followingThunk,
+    unFollowingThunk
 })(UsersContainer);

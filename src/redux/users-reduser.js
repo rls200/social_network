@@ -1,3 +1,5 @@
+import {userApi} from "../api/userApi/userApi";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -68,5 +70,52 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount =(totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
 export const toggleFollowingProgress = (followingProgress) => ({type: FOLLOWING_PROGRESS, followingProgress});
+
+export const getUsers = (pageSize, currentPage) => {
+    return (dispath) => {
+        dispath(setIsLoading(true));
+        userApi.getUsers(pageSize, currentPage).then(response => {
+            dispath(setIsLoading(false));
+            dispath(setUsers(response.items));
+            dispath(setTotalUsersCount(response.totalCount));
+        });
+    }
+
+}
+
+export const getPage = (pageSize, pageNumber) => {
+    return (dispath) => {
+        dispath(setCurrentPage(pageNumber));
+        dispath(setIsLoading(true));
+        userApi.getUsers(pageSize, pageNumber).then(response => {
+            dispath(setIsLoading(false));
+            dispath(setUsers(response.items));
+        });
+    }
+}
+
+export const followingThunk = (userId) => {
+    return (dispath) => {
+        dispath(toggleFollowingProgress(true));
+        userApi.follow(userId).then(response => {
+            if(response.resultCode == 0) {
+                dispath(follow(userId));
+            }
+            dispath(toggleFollowingProgress(false));
+        })
+    }
+}
+
+export const unFollowingThunk = (userId) => {
+    return (dispath) => {
+        dispath(toggleFollowingProgress(true));
+        userApi.unfollow(userId).then(response => {
+            if(response.resultCode == 0) {
+                dispath(unFollow(userId));
+            }
+            dispath(toggleFollowingProgress(false));
+        })
+    }
+}
 
 export default usersReduser;
