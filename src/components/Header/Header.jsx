@@ -9,7 +9,9 @@ const Header = (props) => {
         <header className={HeaderCss.header}>
             <img src='https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png'/>
             <div className={HeaderCss.loginBlock}>
-                {props.isLoading ? <Preloadedr/> : props.isAuth ? <h3>{props.login}</h3> : <NavLink to={'/login'}>Login</NavLink>}
+                {props.isLoading ? <Preloadedr/> :
+                  props.isAuth ? <h3>{props.login}</h3> :
+                    <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     );
