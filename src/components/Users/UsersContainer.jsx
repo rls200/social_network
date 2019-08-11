@@ -1,9 +1,10 @@
 import React from 'react';
+import {compose} from 'redux';
 import Users from './Users';
 import {connect} from 'react-redux';
 import { getUsers, getPage, followingThunk, unFollowingThunk} from '../../redux/users-reduser';
 import Preloadedr from "../Common/Preloader/preloader";
-
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -41,9 +42,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    getUsers,
-    getPage,
-    followingThunk,
-    unFollowingThunk
-})(UsersContainer);
+export default compose (
+  connect(mapStateToProps, {getUsers, getPage, followingThunk, unFollowingThunk}),
+  withAuthRedirect
+) (UsersContainer);
