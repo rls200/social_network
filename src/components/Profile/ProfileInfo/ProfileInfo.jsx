@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileInfoCss from './ProfileInfo.module.css';
-import Preloader from '../Common/Preloader/preloader';
+import Preloader from '../../Common/Preloader/preloader';
 
 const ProfileInfo = (props) => {
 	if (!props.profile) {
@@ -8,7 +8,7 @@ const ProfileInfo = (props) => {
 	}
 	return (
 		<div className={ProfileInfoCss.profileInfo}>
-			<div><img src='http://a41g.com/wp-content/uploads/2016/12/parallax-plane.jpg' /></div>
+			{/*<div><img src='http://a41g.com/wp-content/uploads/2016/12/parallax-plane.jpg' /></div>*/}
 			<div className={ProfileInfoCss.profileInfo__desc}>
 				<div className={ProfileInfoCss.profileInfo__desc__avatar + ' ' + ProfileInfoCss.profileInfo__desc__vn}>
 					<h3>{props.profile.fullName}</h3>

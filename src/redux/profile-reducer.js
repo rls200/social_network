@@ -3,6 +3,7 @@ import {profileApi} from "../api/profileApi/profileApi";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE =  'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 const initializationState = {
 	postsData: [
@@ -10,7 +11,8 @@ const initializationState = {
 		{id: 2, message: 'Its my first', likesCount: 15, avatar: 'https://im0-tub-ru.yandex.net/i?id=6bd07a276f75b34230f96890b524bd9e-sr&n=13'}
 	],
 	newPostText: '',
-	profile: null
+	profile: null,
+	status: ""
 }
 
 const profileReducer = (state = initializationState, action) => {
@@ -39,7 +41,9 @@ const profileReducer = (state = initializationState, action) => {
 			return { ...state, profile: action.profile }
 		}
 
-
+		case SET_STATUS: {
+			return { ...state, status: action.status}
+		}
 
 		default: 
 			return state;
@@ -50,11 +54,26 @@ const profileReducer = (state = initializationState, action) => {
 export const addPostActionCreator = () => ({ type: ADD_POST });
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const setStatus = (status) => ({type: SET_STATUS, status});
 
 export const getProfile = (userId) => {
 	return (dispath) => {
 		profileApi.profile(userId).then(response => {
 			dispath(setUserProfile(response));
+		})
+	}
+}
+export const getStatus = (userId) => {
+	return (dispath) => {
+		profileApi.getStatus(userId).then(response => {
+			dispath(setStatus(response.data))
+		})
+	}
+}
+export const updateStatus = (status) => {
+	return (dispath) => {
+		profileApi.updateStatus(status).then(response => {
+			response.data.resultCode === 0 && dispath(setStatus(status))
 		})
 	}
 }
