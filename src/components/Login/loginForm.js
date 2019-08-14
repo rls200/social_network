@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'
 
-
 const LoginForm = (props) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
@@ -20,18 +19,17 @@ const LoginForm = (props) => {
 		</form>
 	)
 };
-const LoginFormRedux = reduxForm({form: 'login'})(LoginForm);
 
+const createLoginReduxForm = reduxForm({form: 'login'})(LoginForm)
+const loginReduxForm = createLoginReduxForm(LoginForm);
 
-const Login = (props) =>  {
-	const onSubmit = (formData) => {
+class Login extends React.Component {
+	submit = (formData) => {
 		console.log(formData)
 	}
-		return <div>
-			<h2>Login</h2>
-			<LoginFormRedux onSubmit={onSubmit} />
-			</div>
-
+	render() {
+		return <loginReduxForm onSubmit={this.submit} />
+	}
 }
 
 export default Login;

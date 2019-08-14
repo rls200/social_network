@@ -2,9 +2,9 @@ import React from 'react';
 import DialogsCss from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
+import AddMessageFormRedux from './Message/AddMessageForm';
 
 const Dialogs = (props) => {
-
 	let state = props.messagesPage;
 
 	let dialogsElements = state.dialogsData.map(
@@ -15,16 +15,10 @@ const Dialogs = (props) => {
 		m => <Message message={m.message} key={m.id} />
 	)
 
-	let newMessagRef = React.createRef();
-
-	let onAddMessage = () => {
-		props.addMessage(); 
+	const sendMessage = (messageData) => {
+		props.addMessage(messageData.messagTextarea);
 	}
 
-	let onMessagChange = () => {
-		let mess = newMessagRef.current.value;
-		props.messagChange(mess);
-	}
 	return (
 		<div className={DialogsCss.dialogs}>
 			<div className={DialogsCss.dialogs_item}>
@@ -32,12 +26,7 @@ const Dialogs = (props) => {
 			</div>
 			<div className={DialogsCss.messages}>
 				{ messagesElement }
-				<div className={DialogsCss.messagTextarea}>
-					<textarea ref={ newMessagRef } value={ state.newMessageText } onChange={ onMessagChange } placeholder="message"></textarea>
-				</div>
-				<div className={DialogsCss.messagesBtn}>
-					<button onClick={ onAddMessage }>Add message</button>
-				</div>
+				<AddMessageFormRedux onSubmit={sendMessage} />
 			</div>
 		</div>
 	); 
