@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { getUsers, getPage, followingThunk, unFollowingThunk} from '../../redux/users-reduser';
 import Preloadedr from "../Common/Preloader/preloader";
 import notAuthRedirect from '../../hoc/notAuthRedirect';
+import {getTheUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsLoading, getFollowingProgress} from '../../redux/user-selectors';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -33,12 +34,12 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-	      followingProgress: state.usersPage.followingProgress
+        users: getTheUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+	      followingProgress: getFollowingProgress(state)
     }
 }
 
