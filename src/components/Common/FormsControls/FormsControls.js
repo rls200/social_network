@@ -1,5 +1,6 @@
 import React from 'react';
 import FormsControlsCss from './FormsControls.module.css';
+import {Field} from "redux-form";
 
 export const Textarea = ({input, meta, ...props}) => {
 	let checkTextarea = meta.touched && meta.error;
@@ -15,7 +16,7 @@ export const Input = ({input, meta, ...props}) => {
 	let checkTextarea = meta.touched && meta.error;
 	return <>
 		<div className={FormsControlsCss.formControls + ' ' + (checkTextarea ? FormsControlsCss.error : '')}>
-			<input {...input} placeholder={props.placeholder} />
+			<input {...input} placeholder={props.placeholder} type={props.type} />
 		</div>
 		{checkTextarea && <span className={FormsControlsCss.warning}>{meta.error}</span>}
 	</>

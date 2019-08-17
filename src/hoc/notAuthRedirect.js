@@ -6,7 +6,7 @@ let mapStateToPropsRedirect = (state) => ({
 	isAuth: state.auth.isAuth
 });
 
-const withAuthRedirect = (Component) => {
+const notAuthRedirect = (Component) => {
 
 	class RedirectComponent extends React.Component {
 
@@ -20,4 +20,4 @@ const withAuthRedirect = (Component) => {
 
 }
 
-export default withAuthRedirect;
+export default notAuthRedirect;

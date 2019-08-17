@@ -1,7 +1,6 @@
-import {headerApi} from "../api/headerApi/headerApi";
+import {authApi} from "../api/authApi/authApi";
 
 const SET_USER_DATA = 'SET_USER_DATA';
-const SET_IS_AUTH = 'SET_IS_AUTH';
 const SET_IS_LOADING = 'SET_IS_LOADING';
 
 const initialState = {
@@ -19,11 +18,6 @@ const authReduser = (state = initialState, action) => {
                 ...state,
                 ...action.data
             }
-        case SET_IS_AUTH:
-            return {
-                ...state,
-                isAuth: action.isAuth
-            }
         case SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading }
         default:
@@ -31,22 +25,36 @@ const authReduser = (state = initialState, action) => {
     }
 }
 
-export const setUserData = (id, login, email) => ({type:SET_USER_DATA, data: {id, login, email} });
-export const setIsAuth = (isAuth) => ({type:SET_IS_AUTH,  isAuth});
+export const setUserData = (id, login, email, isAuth) => ({type:SET_USER_DATA, data: {id, login, email, isAuth} });
 export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
 
 export const authThunk = () => {
     return (dispath) => {
         dispath(setIsLoading(true));
-        headerApi.header().then(response => {
+        authApi.me().then(response => {
             dispath(setIsLoading(false));
             if (response.resultCode == 0) {
                 let {id, login, email} = response.data;
-                dispath(setUserData(id, login, email));
-                dispath(setIsAuth(true));
+                dispath(setUserData(id, login, email, true));
             }
         })
     }
+}
+
+export const login = (email, password, rememberMi) => (dispath) => {
+    authApi.login(email, password, rememberMi).then(response => {
+        if (response.resultCode == 0) {
+            dispath(authThunk());
+        }
+    })
+}
+
+export const logout = () => (dispath) => {
+        authApi.logout().then(response => {
+            if (response.resultCode == 0) {
+                dispath(setUserData(null, null, null, false));
+            }
+        })
 }
 
 export default authReduser;

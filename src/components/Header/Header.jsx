@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderCss from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import Preloadedr from "../Common/Preloader/preloader";
-import {setIsLoading} from "../../redux/auth-reduser";
 
 const Header = (props) => {
     return (
@@ -10,7 +9,11 @@ const Header = (props) => {
             <img src='https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png'/>
             <div className={HeaderCss.loginBlock}>
                 {props.isLoading ? <Preloadedr/> :
-                  props.isAuth ? <h3>{props.login}</h3> :
+                  props.isAuth ?
+                    <div>
+                      <span>{props.login}</span>
+                      <button onClick={props.logout}>Logout</button>
+                    </div> :
                     <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
