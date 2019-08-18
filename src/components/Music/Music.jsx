@@ -1,5 +1,4 @@
 import React from 'react';
-import MusicCss from './Music.module.css';
 
 const Music = () => {
 	return (

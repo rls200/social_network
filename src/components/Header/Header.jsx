@@ -6,7 +6,7 @@ import Preloadedr from "../Common/Preloader/preloader";
 const Header = (props) => {
     return (
         <header className={HeaderCss.header}>
-            <img src='https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png'/>
+            <img src='https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png' alt={'logotip'}/>
             <div className={HeaderCss.loginBlock}>
                 {props.isLoading ? <Preloadedr/> :
                   props.isAuth ?

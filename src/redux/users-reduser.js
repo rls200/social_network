@@ -98,7 +98,7 @@ export const followingThunk = (userId) => {
     return (dispath) => {
         dispath(toggleFollowingProgress(true));
         userApi.follow(userId).then(response => {
-            if(response.resultCode == 0) {
+            if(response.resultCode === 0) {
                 dispath(follow(userId));
             }
             dispath(toggleFollowingProgress(false));
@@ -110,7 +110,7 @@ export const unFollowingThunk = (userId) => {
     return (dispath) => {
         dispath(toggleFollowingProgress(true));
         userApi.unfollow(userId).then(response => {
-            if(response.resultCode == 0) {
+            if(response.resultCode === 0) {
                 dispath(unFollow(userId));
             }
             dispath(toggleFollowingProgress(false));

@@ -34,7 +34,7 @@ export const authThunk = () => (dispath) => {
         dispath(setIsLoading(true)),
         authApi.me().then(response => {
         dispath(setIsLoading(false));
-        if (response.resultCode == 0) {
+        if (response.resultCode === 0) {
             let {id, login, email} = response.data;
             dispath(setUserData(id, login, email, true));
         }
@@ -43,7 +43,7 @@ export const authThunk = () => (dispath) => {
 
 export const login = (email, password, rememberMi) => (dispath) => {
     authApi.login(email, password, rememberMi).then(response => {
-        if (response.resultCode == 0) {
+        if (response.resultCode === 0) {
             dispath(authThunk());
         } else {
             let messageError = response.messages.length > 0 ? response.messages[0] : 'Some error';
@@ -54,7 +54,7 @@ export const login = (email, password, rememberMi) => (dispath) => {
 
 export const logout = () => (dispath) => {
         authApi.logout().then(response => {
-            if (response.resultCode == 0) {
+            if (response.resultCode === 0) {
                 dispath(setUserData(null, null, null, false));
             }
         })

@@ -11,22 +11,25 @@ const Users = (props) => {
     }
     return <div>
         <div className={UsersCss.pagination}>
-            {pages.map(p =>
+            {pages.map((p, index) =>
                 p <= 10 && <span
+                    key={index}
                     onClick={() => props.onPageChenged(p)}
-                    className={props.currentPage === p && UsersCss.pagination__active}>{p}
+                    className={props.currentPage === p ? UsersCss.pagination__active : undefined}>{p}
                     </span>
             )}
         </div>
         {
-            props.users.map(u =>
-                <div key={u.id} className={UsersCss.users}>
+            props.users.map((u, index) =>
+                <div key={index} className={UsersCss.users}>
                     <div className={UsersCss.users__avatarFollow}>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
                                 <img
                                     className={UsersCss.Users__avatar}
-                                    src={u.photos.small != null ? u.photos.small : avatarPhoto}/>
+                                    src={u.photos.small != null ? u.photos.small : avatarPhoto}
+                                    alt={'user-avatar'}
+                                />
                             </NavLink>
                         </div>
                         <div>

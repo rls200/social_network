@@ -4,8 +4,13 @@ import Post from './Post/Post';
 import AddPostFormRedux from './AddPostForm';
 
 const MyPosts = (props) => {
-	let postsElements = props.postsData.map(
-		p => <Post message={p.message} likesCount={p.likesCount} avatar={p.avatar} />
+	let postsElements = props.postsData.map((p, index) =>
+		<Post
+			message={p.message}
+			likesCount={p.likesCount}
+			avatar={p.avatar}
+			key={index}
+		/>
 	);
 
 	const setNewPost = (formData) => {

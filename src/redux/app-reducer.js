@@ -1,4 +1,3 @@
-import React from 'react';
 import {authThunk} from "./auth-reduser";
 
 const INITIALIZATION_SUCCESS = 'INITIALIZATION_SUCCESS';

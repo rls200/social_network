@@ -4,17 +4,17 @@ import NavbarCss from './Navbar.module.css';
 
 const Navbar = (props) => {
 	let state = props.sidebar;
-	let navbarElements = state.navbarLinks.map(link => {
+	let navbarElements = state.navbarLinks.map((link, index) => {
 		return (
-			<div className={NavbarCss.item}>
+			<div className={NavbarCss.item} key={index}>
 				<NavLink to={link.link} activeClassName={NavbarCss.active} key={link.id}>{link.textLink}</NavLink>
 			</div>
 		);
 	});
-	let friendsElements = state.friends.map(friend => {
+	let friendsElements = state.friends.map((friend, index) => {
 		return (
-			<div className={NavbarCss.friend}>
-				<img src={friend.avatar} />
+			<div className={NavbarCss.friend} key={index}>
+				<img src={friend.avatar} alt={'avatar'}/>
 				<NavLink to={friend.link}>{friend.name}</NavLink>
 			</div>
 		);
