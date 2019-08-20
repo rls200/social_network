@@ -14,8 +14,8 @@ const ProfileStatus = (props) => {
 		setStatus(e.target.value);
 	}
 	useEffect(() => {
-		document.title = status;
-	});
+		setStatus(props.status);
+	}, [props.status]);
 	return <>
 		{!editMode &&
 		<div>
